@@ -1,0 +1,20 @@
+.divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top:20px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #fff; /* Divider line properties */
+}
+
+.divider span {
+    padding: 0 10px; /* Adjust the spacing around the text as needed */
+    color: #fff; /* Text color */
+    background-color: #000; /* Background color behind the text */
+    z-index: 1; /* Place the text above the divider */
+}
