@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-
 import { ThreeDots } from "react-loader-spinner";
 import moment from "moment";
 import SideBarNews from "./SideBarNews";

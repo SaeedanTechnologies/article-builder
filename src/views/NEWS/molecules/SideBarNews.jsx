@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Typography, Stack } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
+import { truncateString } from "../../../utils";
 
 const SideBarNews = ({ newes }) => {
   const navigate = useNavigate();
@@ -47,8 +47,8 @@ const SideBarNews = ({ newes }) => {
                     />
                   </Box>
                   <Box flex={1} sx={{ display: "flex" }}>
-                    <Typography sx={{ fontSize: "17px", fontWeight: "600" }}>
-                      {data.title}
+                    <Typography sx={{ fontSize: "17px", fontWeight: "500" }}>
+                      {truncateString(data.title, 40)}
                     </Typography>
                   </Box>
                 </Box>

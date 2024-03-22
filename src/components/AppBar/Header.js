@@ -106,7 +106,7 @@ const Header = () => {
     { name: "Wiki" },
     { name: "Competitions" },
     { name: "Events" },
-    { name: "Blocks" },
+    { name: "Blogs" },
     { name: "News" },
   ];
 

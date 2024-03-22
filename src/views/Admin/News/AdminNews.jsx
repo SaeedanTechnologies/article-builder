@@ -23,6 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSnackbar } from "notistack";
+// export const truncateString = (string, length) => {}
 
 import { Link, useNavigate } from "react-router-dom";
 import { truncateString } from "../../../utils";
@@ -146,7 +147,7 @@ const AdminNews = () => {
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                          {val.title}
+                          {truncateString(val.title, 30)}
                         </Typography>
                         <Box
                           sx={{
@@ -165,7 +166,7 @@ const AdminNews = () => {
                           >
                             <CalendarTodayIcon />
                             <Typography>
-                              {truncateString(val.description, 50)}
+                              {truncateString(val.description, 40)}
                             </Typography>
                           </Box>
                         </Box>

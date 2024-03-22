@@ -37,7 +37,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import EditPost from "./views/User/UserDashboard/EditPost";
 import CreatePost from "./views/User/UserDashboard/CreatePost";
 import ProfilePage from "./layouts/ProfilePage/ProfilePage";
-import CompetetionHome from "./views/CompetetionPage/components/CompetitionHome/CompetetionHome";
+import CompetetionHome from "./views/CompetetionPage/components/CompetitionHome/ClosestDeadlines";
 import AdminEvents from "./views/Admin/AdminEvents";
 import EditEvent from "./views/Admin/AdminEvents/components/EditEvent";
 import EditNews from "./views/Admin/News/components/EditNews";
@@ -114,7 +114,7 @@ export default function Router() {
             { path: "edit-event", element: <EditEvent /> },
             { path: "edit-news", element: <EditNews /> },
             { path: "edit-block", element: <EditBlocks /> },
-            { path: "blocks", element: <ManageBlocks /> },
+            { path: "blogs", element: <ManageBlocks /> },
             { path: "category", element: <AddCategory /> },
             { path: "leaderboard", element: <LeaderBoard /> },
             { path: "order", element: <Order /> },

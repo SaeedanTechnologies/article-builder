@@ -72,9 +72,9 @@ export default function Nav({ openNav, onCloseNav }) {
     },
     {
       id: 22,
-      title: "Manage Blocks",
+      title: "Manage Blogs",
       icon: <EventAvailableIcon />,
-      to: "/admin/blocks",
+      to: "/admin/blogs",
     },
     {
       id: 122,
@@ -161,7 +161,13 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const renderContent = (
     <>
-      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
+      <Box
+        sx={{
+          px: 2.5,
+          py: 3,
+          display: "inline-flex",
+        }}
+      >
         <Box sx={{ display: "flex" }}>
           <img src="/assets/images/log.png" alt="logo" width="55px" />
           <Typography

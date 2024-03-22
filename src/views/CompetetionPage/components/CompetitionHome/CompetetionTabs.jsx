@@ -3,7 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CompetetionHome from "./CompetetionHome";
+import ClosestDeadlines from "./ClosestDeadlines";
+import ProjectCompetition from "./ProjectCompetition";
+import CompetitionIdea from "./CompetitionIdea";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,15 +65,15 @@ const CompetetionTabs = () => {
           />
         </Tabs>
       </Box>
-      <CompetetionHome value={value} index={0}>
+      <ClosestDeadlines value={value} index={0}>
         Closest deadline first
-      </CompetetionHome>
-      <CompetetionHome value={value} index={1}>
+      </ClosestDeadlines>
+      <ProjectCompetition value={value} index={1}>
         Project competitions first
-      </CompetetionHome>
-      <CompetetionHome value={value} index={2}>
+      </ProjectCompetition>
+      <CompetitionIdea value={value} index={2}>
         Ideas competitions
-      </CompetetionHome>
+      </CompetitionIdea>
     </Box>
   );
 };

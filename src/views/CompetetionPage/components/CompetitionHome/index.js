@@ -1,2 +1,2 @@
 export { default as CompetetionTabs } from "./CompetetionTabs";
-export { default as CompetetionHome } from "./CompetetionHome";
+export { default as CompetetionHome } from "./ClosestDeadlines";

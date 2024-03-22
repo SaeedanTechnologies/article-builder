@@ -167,7 +167,7 @@ export const createEvent = (formData) => async (dispatch) => {
 
 export const getAllNews = () => async (dispatch) => {
   try {
-    const res = await api.get(`api/admin/news`);
+    const res = await api.get(`api/user/ShowNews`);
 
     return res;
   } catch (error) {

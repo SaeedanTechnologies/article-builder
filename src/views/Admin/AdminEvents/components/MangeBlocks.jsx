@@ -95,7 +95,7 @@ const ManageBlocks = () => {
             fontFamily="Bebas Neue"
             letterSpacing="1px"
           >
-            All Blocks
+            All Blogs
           </Typography>
           <Button
             variant="outlined"
@@ -103,7 +103,7 @@ const ManageBlocks = () => {
             sx={{ borderRadius: 0 }}
             endIcon={<AddCircleOutlineIcon />}
           >
-            Add New Blocks
+            Add New Blogs
           </Button>
         </Box>
         <Divider sx={{ mt: 2 }} />

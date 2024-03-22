@@ -5,11 +5,13 @@ import {
   styled,
   Pagination,
   Stack,
+  useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
-
+// or
+import { clsx } from "clsx";
 import WikiPage from "../../WikiPage";
 import {
   DeleteProject,
@@ -30,6 +32,7 @@ import News from "../../NEWS";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { tabChangeAction } from "../../../store/actions/tabChangeActions";
 import { CompetetionTabs } from "../../CompetetionPage/components/CompetitionHome";
+import Test from "./Test";
 
 const StyledRoot = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -41,6 +44,7 @@ const imgData = [];
 
 const MainSection = () => {
   const { state } = useLocation();
+  const theme = useTheme();
   // const [isFirstProject, setIsFirstProject] = useState(true);
   const [Gproject, setGproject] = useState([]);
   const [gridColumns, setGridColumns] = useState(4);
@@ -267,9 +271,16 @@ const MainSection = () => {
             >
               {t("projectsection")}
             </Typography>
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2} sx={{ px: 10, py: 4 }}>
               {currentProjects.map((project, index) => (
-                <Grid item key={index} xs={12} md={6} lg={index == 0 ? 8 : 4}>
+                <Grid
+                  item
+                  key={index}
+                  xs={12}
+                  md={6}
+                  lg={index === 0 ? 8 : 4}
+                  sx={{ boxShadow: 2 }}
+                >
                   <Carousel showArrows={true} showThumbs={false}>
                     {project.image.map((val, imageIndex) => (
                       <div
@@ -293,7 +304,7 @@ const MainSection = () => {
                   <Typography
                     sx={{
                       fontWeight: 600,
-                      fontSize: "22px",
+                      fontSize: "20px",
                       textAlign: "center",
                     }}
                   >
@@ -302,7 +313,7 @@ const MainSection = () => {
                   <Typography
                     sx={{
                       fontWeight: 400,
-                      fontSize: "20px",
+                      fontSize: "18px",
                       textAlign: "center",
                     }}
                   >
@@ -310,7 +321,68 @@ const MainSection = () => {
                   </Typography>
                 </Grid>
               ))}
-            </Grid>
+            </Grid> */}
+
+            <div className="grid grid-cols-3 gap-x-4 gap-y-6 px-10 py-10">
+              {currentProjects.map((project, index) => (
+                <div
+                  key={index}
+                  className={`flex flex-col gap-2 bg-zinc-200 ${
+                    index === 0 ? "col-span-2" : "col-span-1"
+                  }`}
+                >
+                  <Carousel showArrows={true} showThumbs={false}>
+                    {project.image.map((val, imageIndex) => (
+                      <div
+                        key={imageIndex}
+                        className="image-slide"
+                        onClick={() => handleImageClick(project.id)}
+                      >
+                        <img
+                          src={val.image}
+                          alt={`Project ${imageIndex + 1}`}
+                          style={{
+                            height: "400px",
+                            objectFit: "cover",
+                            width: "100%",
+                            userSelect: "none",
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                  <div className="py-6">
+                    <Typography
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: "20px",
+                        textAlign: "center",
+                      }}
+                    >
+                      {project.title}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontWeight: 400,
+                        fontSize: "18px",
+                        textAlign: "center",
+                      }}
+                    >
+                      {project.description}
+                    </Typography>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* <div class="grid grid-cols-3 gap-4">
+              <div class="...">01</div>
+              <div class="...">02</div>
+              <div class="...">03</div>
+              <div class="col-span-2 ">04</div>
+              <div class="...">05</div>
+            </div> */}
+
             <Pagination
               count={Math.ceil(projects.length / projectsPerPage)}
               page={currentPage}
@@ -332,7 +404,7 @@ const MainSection = () => {
         {tabValue === "Wiki" && <WikiPage />}
         {tabValue === "Competitions" && <CompetetionTabs />}
         {tabValue === "Events" && <EventsPage />}
-        {tabValue === "Blocks" && <BlockSection />}
+        {tabValue === "Blogs" && <BlockSection />}
         {tabValue === "News" && <News />}
       </StyledRoot>
     </div>
