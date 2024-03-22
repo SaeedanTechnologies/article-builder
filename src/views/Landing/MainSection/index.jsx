@@ -13,7 +13,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import WikiPage from "../../WikiPage";
 import {
   DeleteProject,
-  getAllNews,
   getAllPosts,
   getAllProjects,
 } from "../../../store/actions/userActions";
@@ -28,7 +27,6 @@ import { useTranslation } from "react-i18next";
 import EventsPage from "../../EventsPage";
 import BlockSection from "../../BlockSection/BlockSection";
 import News from "../../NEWS";
-// import StackGrid, { transitions } from "react-stack-grid";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { tabChangeAction } from "../../../store/actions/tabChangeActions";
 import { CompetetionTabs } from "../../CompetetionPage/components/CompetitionHome";
@@ -119,20 +117,6 @@ const MainSection = () => {
       getPosts();
     }
   }, [tabValue]);
-
-  // React.useEffect(() => {
-  //   setLoading(true);
-  //   dispatch(getAllNews())
-  //     .then((result) => {
-  //       console.log("=========result data========", result.data.payload);
-  //       setNewes(result.data.payload);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       setLoading(false);
-  //       console.log(err);
-  //     });
-  // }, [tabValue === "News"]);
 
   const navigate = useNavigate();
   const [currentImage, setCurrentImage] = React.useState(0);
@@ -256,7 +240,7 @@ const MainSection = () => {
                 </ResponsiveMasonry>
               </div>
             )}
-            {/* <Pagination
+            <Pagination
               count={Math.ceil(posts.length / postsPerPage)}
               page={currentPage}
               onChange={handlePageChange}
@@ -271,7 +255,7 @@ const MainSection = () => {
                   color: "#fff",
                 },
               }}
-            /> */}
+            />
           </Stack>
         )}
 
