@@ -56,6 +56,17 @@ export const getCategories = () => async (dispatch) => {
   }
 };
 
+export const getPost = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(
+      `${process.env.REACT_APP_URL}api/user/posts/${id}`
+    );
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const addPost = (body) => async (dispatch) => {
   try {
     const res = await api.post(

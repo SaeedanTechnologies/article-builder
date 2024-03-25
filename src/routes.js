@@ -41,6 +41,7 @@ import CompetetionHome from "./views/CompetetionPage/components/CompetitionHome/
 import AdminEvents from "./views/Admin/AdminEvents";
 import EditEvent from "./views/Admin/AdminEvents/components/EditEvent";
 import EditNews from "./views/Admin/News/components/EditNews";
+import { EditAdminPost, AdminPost } from "./views/Admin/AdminPosts";
 import ViewProject from "./views/Landing/ViewProject";
 import Feed from "./views/User/UserDashboard/Feed";
 import AdminCompetetion from "./views/Admin/AdminCompetetion";
@@ -113,6 +114,9 @@ export default function Router() {
             { path: "news", element: <AdminNews /> },
             { path: "edit-event", element: <EditEvent /> },
             { path: "edit-news", element: <EditNews /> },
+            { path: "posts", element: <AdminPost /> },
+            { path: "add-post", element: <AddPost /> },
+            { path: "edit-post/:id", element: <EditAdminPost /> },
             { path: "edit-block", element: <EditBlocks /> },
             { path: "blogs", element: <ManageBlocks /> },
             { path: "category", element: <AddCategory /> },

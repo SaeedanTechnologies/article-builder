@@ -27,6 +27,7 @@ import { makeStyles } from "@mui/styles";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
 import clsx from "clsx";
@@ -63,6 +64,12 @@ export default function Nav({ openNav, onCloseNav }) {
       title: "Manage Events",
       icon: <EventAvailableIcon />,
       to: "/admin/events",
+    },
+    {
+      id: 23,
+      title: "Manage Posts",
+      icon: <VerifiedIcon />,
+      to: "/admin/posts",
     },
     {
       id: 10,
