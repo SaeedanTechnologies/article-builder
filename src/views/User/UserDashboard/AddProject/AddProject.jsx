@@ -10,7 +10,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import {
   CreateProject,
@@ -19,19 +18,15 @@ import {
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
 
-const CreatePost = () => {
+const AddProject = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [categories, setCategories] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+
   const dispatch = useDispatch();
 
-  const onSubmit = async (data) => {
+  const handleSubmit = async (data) => {
     setIsSubmitting(true);
 
     // Create a new FormData object to handle file uploads
@@ -84,7 +79,7 @@ const CreatePost = () => {
         boxShadow: 3,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid
             item
@@ -106,12 +101,7 @@ const CreatePost = () => {
               <input
                 type="file"
                 id="image"
-                {...register("image", {
-                  validate: {
-                    atLeastTwoImages: (files) =>
-                      files.length > 1 || "Please select more than one image",
-                  },
-                })}
+                value={}
                 accept="image/*"
                 multiple
               />
@@ -129,15 +119,9 @@ const CreatePost = () => {
                     <FormControl variant="standard">
                       <Select
                         id="category_id"
-                        {...register("category_id", {
-                          required: "category_id is required",
-                        })}
+                       
                       >
-                        {errors.category_id && (
-                          <p className="text-red-600">
-                            {errors.category_id.message}
-                          </p>
-                        )}
+                       
 
                         {categories?.map((category) => (
                           <MenuItem key={category.id} value={category.id}>
@@ -152,13 +136,9 @@ const CreatePost = () => {
                     <FormControl variant="standard">
                       <Select
                         id="specs"
-                        {...register("specs", {
-                          required: "specs is required",
-                        })}
+                       
                       >
-                        {errors.specs && (
-                          <p className="text-red-600">{errors.specs.message}</p>
-                        )}
+                     
                         {["Text", "Number"].map((type) => (
                           <MenuItem key={type} value={type}>
                             {type}
@@ -179,18 +159,14 @@ const CreatePost = () => {
                   })}
                   sx={{ width: "100%" }}
                 />
-                {errors.title && (
-                  <p className="text-red-600">{errors.title.message}</p>
-                )}
+                
               </Grid>
               <Grid item lg={12}>
                 <InputLabel>Description</InputLabel>
                 <TextField
                   id="description"
                   variant="standard"
-                  {...register("description", {
-                    required: "Description is required",
-                  })}
+                 
                   sx={{ width: "100%" }}
                 />
                 {errors.description && (
@@ -218,4 +194,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default AddProject;

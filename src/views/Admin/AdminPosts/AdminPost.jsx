@@ -24,6 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSnackbar } from "notistack";
+import { truncateString } from "../../../utils/helper";
 import { Link, useNavigate } from "react-router-dom";
 const StyledRoot = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -83,9 +84,7 @@ const AdminPost = () => {
       ],
     });
   };
-  const handleEdit = (data) => {
-    navigate("/admin/edit-event", { state: data });
-  };
+
   return (
     <Page title="Posts Manager">
       <StyledRoot>
@@ -150,15 +149,21 @@ const AdminPost = () => {
                           sx={{
                             display: "flex",
                             flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "start",
+                            alignItems: "start",
+                            justifyContent: "center",
                             gap: 1,
                           }}
                         >
-                          <Typography sx={{ fontWeight: 600 }}>
+                          <Typography
+                            sx={{ fontWeight: 600, fontSize: "22px" }}
+                          >
                             {val.title}
                           </Typography>
-                          <Typography>{val.description}</Typography>
+                          <Typography
+                            sx={{ fontWeight: 400, fontSize: "19px" }}
+                          >
+                            {truncateString(val.description, 30)}
+                          </Typography>
                         </Box>
                       </CardContent>
                     </CardActionArea>

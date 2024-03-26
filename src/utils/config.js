@@ -34,6 +34,7 @@ const resources = {
       arr: "All rights reserved. Architecture 2020-2023",
       aia: "All images are © each office/photographer mentioned",
       bs: "Block Section",
+      update: "Update",
     },
   },
   ar: {
@@ -67,6 +68,7 @@ const resources = {
       arr: "كل الحقوق محفوظة. الهندسة المعمارية 2020-2023",
       aia: "جميع الصور محفوظة © لكل مكتب/مصور مذكور",
       bs: "قسم الكتلة",
+      update: "تحديث",
     },
   },
 };

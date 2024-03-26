@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -8,8 +9,10 @@ import {
   CardContent,
   Input,
   Grid,
+  Stack,
   InputAdornment,
   Divider,
+  useTheme,
   styled,
   Box,
   Dialog,
@@ -19,7 +22,7 @@ import {
 import { AccountCircle } from "@mui/icons-material";
 import Page from "../../../../components/page";
 import { useDispatch } from "react-redux";
-import { addPost, getPost } from "../../../../store/actions/userActions";
+import { editPost, getPost } from "../../../../store/actions/userActions";
 import { ThreeDots } from "react-loader-spinner";
 import { useSnackbar } from "notistack";
 import { useParams } from "react-router-dom";
@@ -30,54 +33,60 @@ const StyledRoot = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4),
 }));
 const initialValues = {
+  id: -1,
+  created_at: "",
+  updated_a: "",
   title: "",
   description: "",
-  link: `${process.env.REACT_APP_URL}api/posts`,
+  image: "",
+  link: "",
+  user_id: "",
+  comments: [],
+  likes: [],
 };
 const EditAdminPost = () => {
-  const [post, setPost] = useState({
-    image: null,
-    title: "",
-    description: "",
-  });
+  const [post, setPost] = useState(initialValues);
   const { id } = useParams();
+  const imageRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [formValues, setFormValues] = React.useState(initialValues);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const theme = useTheme();
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    setPost({ ...post, [name]: value });
   };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
+    setPost({ ...post, image: file });
+  };
+
+  const handleImageRef = () => {
+    imageRef.current.click();
   };
 
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", selectedImage);
-    formData.append("title", formValues.title);
-    formData.append("description", formValues.description);
-    formData.append("link", formValues.link);
-    dispatch(addPost(formData))
+    dispatch(editPost(post, post.id))
       .then((result) => {
         setLoading(false);
         enqueueSnackbar(result.data.message, {
           variant: "success",
         });
+        navigate("/admin/posts");
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
     setSelectedImage(null);
-    setFormValues(initialValues);
+    setPost(initialValues);
   };
 
   const getSinglePost = () => {
@@ -86,7 +95,7 @@ const EditAdminPost = () => {
       .then((result) => {
         setLoading(false);
         console.log(result.data.payload);
-        // setPost(result.data.payload);
+        setPost(result.data.payload);
       })
       .catch((err) => {
         setLoading(false);
@@ -98,8 +107,10 @@ const EditAdminPost = () => {
     getSinglePost();
   }, []);
 
+  console.log("post=======", post);
+
   return (
-    <Page title="Create Pin">
+    <Page title="Update Post">
       <StyledRoot>
         <div
           style={{
@@ -113,65 +124,59 @@ const EditAdminPost = () => {
             <Card variant="outlined" style={{ borderRadius: "12px" }}>
               <CardContent style={{ background: "white" }}>
                 <form onSubmit={handleSubmit}>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
-                      {selectedImage ? (
-                        <img
-                          src={URL.createObjectURL(selectedImage)}
-                          alt="Selected"
-                          style={{
-                            marginLeft: "110px",
-                            width: "320px",
-                            height: "90%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      ) : (
+                      <Stack
+                        gap={2}
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      >
                         <div
                           style={{
-                            backgroundColor: "#e1e1e1",
-                            marginLeft: "110px",
-                            width: "320px",
-                            height: "90%",
-                            paddingTop: "100%",
-                            position: "relative",
+                            backgroundImage: selectedImage
+                              ? `url(${URL.createObjectURL(selectedImage)})`
+                              : `url(${process.env.REACT_APP_URL}${post.image})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                        ></div>
+                        <input
+                          ref={imageRef}
+                          name="image"
+                          type="file"
+                          accept="image/*"
+                          hidden
+                          onChange={handleImageChange}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            opacity: 0,
+                            cursor: "pointer",
+                          }}
+                        />
+                        <Button
+                          onClick={handleImageRef}
+                          variant="contained"
+                          color="primary"
+                          style={{
+                            backgroundColor: theme.palette.primary.main,
+                            width: "40%",
                           }}
                         >
-                          <input
-                            required
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            style={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              width: "100%",
-                              height: "100%",
-                              opacity: 0,
-                              cursor: "pointer",
-                            }}
-                          />
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            style={{
-                              position: "absolute",
-                              top: "50%",
-                              left: "50%",
-                              transform: "translate(-50%, -50%)",
-                            }}
-                          >
-                            Edit Image
-                          </Button>
-                        </div>
-                      )}
+                          Edit Image
+                        </Button>
+                      </Stack>
                     </Grid>
+
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
                         name="title"
-                        value={formValues.title}
+                        value={post.title}
                         onChange={handleChange}
                         id="input-with-icon-textfield"
                         style={{ width: "85%", marginTop: "50px" }}
@@ -196,7 +201,7 @@ const EditAdminPost = () => {
                         <TextField
                           required
                           name="description"
-                          value={formValues.description}
+                          value={post.description}
                           onChange={handleChange}
                           id="input-with-icon-textfield"
                           style={{
@@ -226,7 +231,7 @@ const EditAdminPost = () => {
                           color: "white",
                         }}
                       >
-                        {t("createPin")}
+                        {t("update")}
                       </Button>
                     </Grid>
                   </Grid>
@@ -247,7 +252,6 @@ const EditAdminPost = () => {
                 radius="9"
                 color="#3E50CE"
                 ariaLabel="three-dots-loading"
-                wrapperStyle={{}}
                 wrapperClassName=""
                 visible={true}
               />

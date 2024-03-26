@@ -35,7 +35,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 // import Allposts from "./views/User/UserDashboard/AllPosts/Allposts";
 // import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 import EditPost from "./views/User/UserDashboard/EditPost";
-import CreatePost from "./views/User/UserDashboard/CreatePost";
+import AddProject from "./views/User/UserDashboard/AddProject";
 import ProfilePage from "./layouts/ProfilePage/ProfilePage";
 import CompetetionHome from "./views/CompetetionPage/components/CompetitionHome/ClosestDeadlines";
 import AdminEvents from "./views/Admin/AdminEvents";
@@ -140,7 +140,7 @@ export default function Router() {
           element: <UserDashboard />,
           children: [
             { path: "dashboard", element: <DashboardUser /> },
-            { path: "createpost", element: <CreatePost /> },
+            { path: "add-project", element: <AddProject /> },
             { path: "add-post", element: <AddPost /> },
             { path: "all-posts", element: <Allposts /> },
             { path: "view-post", element: <ViewSinglePost /> },

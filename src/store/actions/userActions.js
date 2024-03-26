@@ -80,6 +80,19 @@ export const addPost = (body) => async (dispatch) => {
   }
 };
 
+export const editPost = (body, id) => async (dispatch) => {
+  try {
+    const res = await api.put(
+      `${process.env.REACT_APP_URL}api/user/posts/${id}`,
+      body,
+      {}
+    );
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const likePost = (body) => async (dispatch) => {
   try {
     const res = await api.post(
@@ -329,6 +342,13 @@ export const editBlocks = (body, id) => async (dispatch) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const setNavAdminItem = (index) => async (dispatch) => {
+  dispatch({
+    type: "SET_ADMIN_NAV_ITEM",
+    payload: index,
+  });
 };
 
 export const BlockCategory = (formData) => async (dispatch) => {

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
 import {
   Box,
@@ -31,6 +32,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
 import clsx from "clsx";
+import { setNavAdminItem } from "../../../../../store/actions/userActions";
 
 const NAV_WIDTH = 280;
 const StyledAccount = styled("div")(({ theme }) => ({
@@ -85,7 +87,7 @@ export default function Nav({ openNav, onCloseNav }) {
     },
     {
       id: 122,
-      title: "Add Category",
+      title: "Blog Category",
       icon: <EventAvailableIcon />,
       to: "/admin/category",
     },
@@ -145,18 +147,21 @@ export default function Nav({ openNav, onCloseNav }) {
     },
   ];
   const location = useLocation();
+  const dispatch = useDispatch();
+  const adminNavbarItemIndex = useSelector(
+    (state) => state.user.adminNavItemIndex
+  );
   const [dOpen, setDopen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
   const isDesktop = useResponsive("up", "lg");
   const classes = useStyles();
   React.useEffect(() => {
     const matchingItem = ListData.find((item) => item.to === location.pathname);
     if (matchingItem) {
-      setSelectedIndex(matchingItem.id);
+      dispatch(setNavAdminItem(matchingItem.id));
     }
   }, [location.pathname]);
   const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+    dispatch(setNavAdminItem(index));
     setDopen(false);
   };
   useEffect(() => {
@@ -195,14 +200,14 @@ export default function Nav({ openNav, onCloseNav }) {
                   key={index}
                   disablePadding
                   className={clsx(classes.root, {
-                    [classes.selected]: selectedIndex === val.id,
+                    [classes.selected]: adminNavbarItemIndex === val.id,
                   })}
                   component={Link}
                   to={val.to}
                   sx={{ mb: 2 }}
                 >
                   <ListItemButton
-                    selected={selectedIndex === val.id}
+                    selected={adminNavbarItemIndex === val.id}
                     onClick={(event) => handleListItemClick(event, val.id)}
                     sx={{
                       "&:hover": {
@@ -212,7 +217,8 @@ export default function Nav({ openNav, onCloseNav }) {
                   >
                     <ListItemIcon
                       sx={{
-                        color: selectedIndex === val.id ? "#fff" : "#686868",
+                        color:
+                          adminNavbarItemIndex === val.id ? "#fff" : "#686868",
                       }}
                     >
                       {val.icon}
@@ -220,7 +226,8 @@ export default function Nav({ openNav, onCloseNav }) {
                     <ListItemText
                       primary={val.title}
                       sx={{
-                        color: selectedIndex === val.id ? "#fff" : "#686868",
+                        color:
+                          adminNavbarItemIndex === val.id ? "#fff" : "#686868",
                       }}
                     />
                   </ListItemButton>

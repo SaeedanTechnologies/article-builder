@@ -1,24 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
-    padding:0;
-    margin:0
+* {
+  padding: 0;
+  margin: 0;
 }
 
-
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #e2e2e2; 
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #cecece; 
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e2e2;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cecece;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+iframe#webpack-dev-server-client-overlay {
+  display: none !important;
+}
