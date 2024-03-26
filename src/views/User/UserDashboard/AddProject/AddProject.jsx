@@ -98,16 +98,7 @@ const AddProject = () => {
           >
             <div>
               <label htmlFor="image">Upload images:</label>
-              <input
-                type="file"
-                id="image"
-                value={}
-                accept="image/*"
-                multiple
-              />
-              {errors.image && (
-                <p className="text-red-600">{errors.image.message}</p>
-              )}
+              <input type="file" id="image" accept="image/*" multiple />
             </div>
           </Grid>
           <Grid item lg={6}>
@@ -117,11 +108,7 @@ const AddProject = () => {
                   <Grid item lg={6}>
                     <InputLabel>Category_id</InputLabel>
                     <FormControl variant="standard">
-                      <Select
-                        id="category_id"
-
-                      >
-
+                      <Select id="category_id">
                         {categories?.map((category) => (
                           <MenuItem key={category.id} value={category.id}>
                             {category.id}
@@ -133,11 +120,7 @@ const AddProject = () => {
                   <Grid item lg={6}>
                     <InputLabel>Specification</InputLabel>
                     <FormControl variant="standard">
-                      <Select
-                        id="specs"
-
-                      >
-
+                      <Select id="specs">
                         {["Text", "Number"].map((type) => (
                           <MenuItem key={type} value={type}>
                             {type}
@@ -153,24 +136,16 @@ const AddProject = () => {
                 <TextField
                   id="title"
                   variant="standard"
-                  {...register("title", {
-                    required: "Title is required",
-                  })}
                   sx={{ width: "100%" }}
                 />
-
               </Grid>
               <Grid item lg={12}>
                 <InputLabel>Description</InputLabel>
                 <TextField
                   id="description"
                   variant="standard"
-
                   sx={{ width: "100%" }}
                 />
-                {errors.description && (
-                  <p className="text-red-600">{errors.description.message}</p>
-                )}
               </Grid>
             </Grid>
           </Grid>
@@ -192,7 +167,5 @@ const AddProject = () => {
     </Box>
   );
 };
-
-
 
 export default AddProject;
