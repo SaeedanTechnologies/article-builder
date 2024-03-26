@@ -119,9 +119,8 @@ const AddProject = () => {
                     <FormControl variant="standard">
                       <Select
                         id="category_id"
-                       
+
                       >
-                       
 
                         {categories?.map((category) => (
                           <MenuItem key={category.id} value={category.id}>
@@ -136,9 +135,9 @@ const AddProject = () => {
                     <FormControl variant="standard">
                       <Select
                         id="specs"
-                       
+
                       >
-                     
+
                         {["Text", "Number"].map((type) => (
                           <MenuItem key={type} value={type}>
                             {type}
@@ -159,14 +158,14 @@ const AddProject = () => {
                   })}
                   sx={{ width: "100%" }}
                 />
-                
+
               </Grid>
               <Grid item lg={12}>
                 <InputLabel>Description</InputLabel>
                 <TextField
                   id="description"
                   variant="standard"
-                 
+
                   sx={{ width: "100%" }}
                 />
                 {errors.description && (
@@ -193,5 +192,7 @@ const AddProject = () => {
     </Box>
   );
 };
+
+
 
 export default AddProject;

@@ -35,7 +35,7 @@ const initialValues = {
   description: "",
   link: `${process.env.REACT_APP_URL}api/posts`,
 };
-const AddPost = () => {
+ const AddPost = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [formValues, setFormValues] = React.useState(initialValues);
   const [loading, setLoading] = React.useState(false);
@@ -285,5 +285,4 @@ const AddPost = () => {
     </Page>
   );
 };
-
 export default AddPost;
