@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { useDispatch } from "react-redux";
-import { getAllPosts } from "../../../../store/actions/userActions";
+import { getAllProjects } from "../../../../store/actions/userActions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import moment from "moment";
@@ -23,17 +23,17 @@ const StyledRoot = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5),
   marginTop: theme.spacing(4),
 }));
-const Allposts = () => {
-  const [posts, setPosts] = React.useState([]);
+const AllProjects = () => {
+  const [projects, setProjects] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const getPosts = () => {
+  const getProjects = () => {
     setLoading(true);
-    dispatch(getAllPosts())
+    dispatch(getAllProjects())
       .then((result) => {
         setLoading(false);
-        setPosts(result.data.payload);
+        setProjects(result.data.payload);
       })
       .catch((err) => {
         setLoading(false);
@@ -41,15 +41,15 @@ const Allposts = () => {
       });
   };
   React.useEffect(() => {
-    getPosts();
+    getProjects();
   }, []);
 
-  const handlePostClick = (data) => {
+  const handleProjectClick = (data) => {
     // console.log(data)
     navigate("/user/view-post", { state: data });
   };
   return (
-    <Page title="All Posts">
+    <Page title="All Projects">
       <StyledRoot>
         <Grid container spacing={2}>
           {loading ? (
@@ -64,7 +64,7 @@ const Allposts = () => {
               visible={true}
             />
           ) : (
-            posts.map((val) => {
+            projects.map((val) => {
               const formattedDate = moment(val.created_at).format(
                 "MMMM D, YYYY"
               );
@@ -95,15 +95,15 @@ const Allposts = () => {
                       subheader={formattedDate}
                     />
                     <CardMedia
-                      onClick={() => handlePostClick(val)}
+                      onClick={() => handleProjectClick(val)}
                       component="img"
                       style={{ height: "400px" }}
                       maxHeight="194"
-                      image={`${process.env.REACT_APP_URL}${val.image}`}
+                      image={`${val.image[0].image}`}
                       alt="Image"
                     />
                     <CardContent
-                      onClick={() => handlePostClick(val)}
+                      onClick={() => handleProjectClick(val)}
                       style={{
                         height: "100px",
                         overflow: "hidden",
@@ -142,4 +142,4 @@ const Allposts = () => {
   );
 };
 
-export default Allposts;
+export default AllProjects;

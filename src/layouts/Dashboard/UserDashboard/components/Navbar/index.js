@@ -71,6 +71,12 @@ export default function UserNav({ openNav, onCloseNav }) {
       to: "/user/add-project",
     },
     {
+      id: 9,
+      title: "All Projects",
+      icon: <CardMembershipIcon />,
+      to: "/user/all-projects",
+    },
+    {
       id: 4,
       title: "Add Post",
       icon: <AddOutlined />,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -20,34 +20,52 @@ import { useNavigate } from "react-router";
 
 const AddProject = () => {
   const navigate = useNavigate();
+  const imageRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [categories, setCategories] = useState([]);
+  const initialValues = {
+    category_id: 1,
+    title: "",
+    specs: "Text",
+    description: "",
+    image: null,
+  };
+  const [project, setProject] = useState(initialValues);
   const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsSubmitting(true);
-
+    const { category_id, title, specs, description, image } = initialValues;
+    if (!category_id || !title || !specs || !description || !image) {
+      enqueueSnackbar("Please Fills all the fields...", {
+        variant: "warning",
+      });
+    }
     // Create a new FormData object to handle file uploads
     const formData = new FormData();
-    formData.append("category_id", data.category_id);
-    formData.append("title", data.title);
-    formData.append("specs", data.specs);
-    formData.append("description", data.description);
+    formData.append("category_id", project.category_id);
+    formData.append("title", project.title);
+    formData.append("specs", project.specs);
+    formData.append("description", project.description);
 
     // Append each selected file to the FormData object
-    for (const file of data.image) {
+    for (const file of project.image) {
       formData.append("image[]", file);
     }
 
-    dispatch(CreateProject(formData))
+    await dispatch(CreateProject(formData))
       .then((res) => {
         if (res.status === 200) {
           console.log(res);
           enqueueSnackbar(res.data.message, {
             variant: "success",
           });
+          setProject(initialValues);
+          imageRef.current.value = null;
+
           // navigate('/')
         }
       })
@@ -59,11 +77,22 @@ const AddProject = () => {
       });
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setProject({ ...project, [name]: value });
+  };
+
+  const handleImages = (event) => {
+    const { name, files } = event.target;
+    console.log("files======", files);
+    setProject({ ...project, image: files });
+  };
+
   useEffect(() => {
     dispatch(getCategories())
       .then((response) => {
         setCategories(response.data.payload);
-        console.log("categories response========", response.data.payload);
+        // console.log("categories response========", response.data.payload);
       })
       .catch((err) => {
         console.log("error=========", err);
@@ -98,7 +127,14 @@ const AddProject = () => {
           >
             <div>
               <label htmlFor="image">Upload images:</label>
-              <input type="file" id="image" accept="image/*" multiple />
+              <input
+                ref={imageRef}
+                type="file"
+                id="image"
+                accept="image/*"
+                onChange={handleImages}
+                multiple
+              />
             </div>
           </Grid>
           <Grid item lg={6}>
@@ -108,7 +144,12 @@ const AddProject = () => {
                   <Grid item lg={6}>
                     <InputLabel>Category_id</InputLabel>
                     <FormControl variant="standard">
-                      <Select id="category_id">
+                      <Select
+                        id="category_id"
+                        name="category_id"
+                        onChange={handleChange}
+                        value={project.category_id}
+                      >
                         {categories?.map((category) => (
                           <MenuItem key={category.id} value={category.id}>
                             {category.id}
@@ -120,7 +161,12 @@ const AddProject = () => {
                   <Grid item lg={6}>
                     <InputLabel>Specification</InputLabel>
                     <FormControl variant="standard">
-                      <Select id="specs">
+                      <Select
+                        id="specs"
+                        name="specs"
+                        value={project.specs}
+                        onChange={handleChange}
+                      >
                         {["Text", "Number"].map((type) => (
                           <MenuItem key={type} value={type}>
                             {type}
@@ -135,16 +181,24 @@ const AddProject = () => {
                 <InputLabel>Title</InputLabel>
                 <TextField
                   id="title"
+                  name="title"
+                  placeholder="Enter Title of Project"
                   variant="standard"
                   sx={{ width: "100%" }}
+                  value={project.title}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item lg={12}>
                 <InputLabel>Description</InputLabel>
                 <TextField
                   id="description"
+                  placeholder="Enter Description of Project"
+                  name="description"
                   variant="standard"
                   sx={{ width: "100%" }}
+                  value={project.description}
+                  onChange={handleChange}
                 />
               </Grid>
             </Grid>
